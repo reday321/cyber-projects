@@ -1,0 +1,123 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Security Encryption Playground</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <style>
+    @keyframes bg-animation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    body {
+      background: linear-gradient(45deg, #008CBA, #4CAF50, #E91E63, #9C27B0);
+      background-size: 400% 400%;
+      animation: bg-animation 10s ease infinite;
+    }
+
+    .cipher-card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .cipher-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .cipher-card .card-title {
+      font-weight: 600;
+    }
+
+    .cipher-card .card-text {
+      color: #6c757d;
+    }
+
+    .cipher-card .btn {
+      background-color: #007bff;
+      border-color: #007bff;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .cipher-card .btn:hover {
+      background-color: #0056b3;
+      border-color: #004a9b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="text-center mb-5 text-white">Cyber Security Encryption Playground</h1>
+    <div class="row justify-content-center g-5">
+      <div class="col-md-4">
+        <div class="card cipher-card h-100">
+          <div class="card-body text-center p-5">
+            <h3 class="card-title mb-4">Caesar Cipher</h3>
+            <p class="card-text">A simple substitution cipher that shifts letters by a fixed amount.</p>
+            <a href="cipher.html?type=caesar" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card cipher-card h-100">
+          <div class="card-body text-center p-5">
+            <h3 class="card-title mb-4">Multiplicative Cipher</h3>
+            <p class="card-text">Encrypts by multiplying each letter's position with a key value.</p>
+            <a href="cipher.html?type=multiplicative" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card cipher-card h-100">
+          <div class="card-body text-center p-5">
+            <h3 class="card-title mb-4">Affine Cipher</h3>
+            <p class="card-text">Combines multiplication and shift operations for encryption.</p>
+            <a href="cipher.html?type=affine" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card cipher-card h-100">
+          <div class="card-body text-center p-5">
+            <h3 class="card-title mb-4">Additive Cipher</h3>
+            <p class="card-text">Encrypts by adding a constant value to each letter's position.</p>
+            <a href="cipher.html?type=additive" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card cipher-card h-100">
+          <div class="card-body text-center p-5">
+            <h3 class="card-title mb-4">AES Cipher</h3>
+            <p class="card-text">Advanced Encryption Standard, a widely used symmetric-key algorithm.</p>
+            <a href="cipher.html?type=aes" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

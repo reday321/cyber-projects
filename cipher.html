@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .result {
+            min-height: 100px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <a href="index.html" class="btn btn-outline-secondary mb-4">← Back to Algorithm Selection</a>
+        
+        <h1 class="text-center mb-4" id="cipherTitle">Cipher Tool</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="key1" class="form-label">Key</label>
+                            <input type="number" class="form-control" id="key1" required>
+                        </div>
+                        
+                        <div class="mb-3" id="key2Container" style="display: none;">
+                            <label for="key2" class="form-label">Second Key (for Affine Cipher)</label>
+                            <input type="number" class="form-control" id="key2">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" required></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button onclick="handleEncrypt()" class="btn btn-primary">Encrypt</button>
+                            <button onclick="handleDecrypt()" class="btn btn-secondary">Decrypt</button>
+                        </div>
+
+                        <div class="result mt-4" id="result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get cipher type from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const cipherType = urlParams.get('type');
+        
+        // Update page title and form based on cipher type
+        document.getElementById('cipherTitle').textContent = 
+            cipherType.charAt(0).toUpperCase() + cipherType.slice(1) + ' Cipher';
+        
+        if (cipherType === 'affine') {
+            document.getElementById('key2Container').style.display = 'block';
+        }
+
+        // Cipher implementations
+        const cipherFunctions = {
+            caesar: {
+                encrypt: (text, key) => {
+                    return text.split('').map(char => {
+                        if (char.match(/[a-z]/i)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base + parseInt(key)) % 26) + 26) % 26 + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                },
+                decrypt: (text, key) => {
+                    return cipherFunctions.caesar.encrypt(text, -key);
+                }
+            },
+            multiplicative: {
+                encrypt: (text, key) => {
+                    return text.split('').map(char => {
+                        if (char.match(/[a-z]/i)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base) * parseInt(key)) % 26 + 26) % 26 + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                },
+                decrypt: (text, key) => {
+                    // Find modular multiplicative inverse
+                    const findInverse = (a) => {
+                        for (let x = 1; x < 26; x++) {
+                            if ((a * x) % 26 === 1) return x;
+                        }
+                        return 1;
+                    };
+                    const inverse = findInverse(parseInt(key));
+                    return cipherFunctions.multiplicative.encrypt(text, inverse);
+                }
+            },
+            affine: {
+                encrypt: (text, key1, key2) => {
+                    return text.split('').map(char => {
+                        if (char.match(/[a-z]/i)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base) * parseInt(key1) + parseInt(key2)) % 26 + 26) % 26 + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                },
+                decrypt: (text, key1, key2) => {
+                    const findInverse = (a) => {
+                        for (let x = 1; x < 26; x++) {
+                            if ((a * x) % 26 === 1) return x;
+                        }
+                        return 1;
+                    };
+                    const inverse = findInverse(parseInt(key1));
+                    return text.split('').map(char => {
+                        if (char.match(/[a-z]/i)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base - parseInt(key2)) * inverse % 26 + 26) % 26) + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                }
+            }
+        };
+
+        function handleEncrypt() {
+            const message = document.getElementById('message').value;
+            const key1 = document.getElementById('key1').value;
+            const key2 = document.getElementById('key2')?.value;
+            let result;
+
+            if (cipherType === 'affine') {
+                result = cipherFunctions[cipherType].encrypt(message, key1, key2);
+            } else {
+                result = cipherFunctions[cipherType].encrypt(message, key1);
+            }
+
+            document.getElementById('result').textContent = result;
+        }
+
+        function handleDecrypt() {
+            const message = document.getElementById('message').value;
+            const key1 = document.getElementById('key1').value;
+            const key2 = document.getElementById('key2')?.value;
+            let result;
+
+            if (cipherType === 'affine') {
+                result = cipherFunctions[cipherType].decrypt(message, key1, key2);
+            } else {
+                result = cipherFunctions[cipherType].decrypt(message, key1);
+            }
+
+            document.getElementById('result').textContent = result;
+        }
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
