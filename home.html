@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Cipher Descriptions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @keyframes bg-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff6f61, #6dd5ed, #ffcc2f, #1fab89);
+            background-size: 400% 400%;
+            animation: bg-animation 10s ease infinite;
+            color: black;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+        }
+
+        h1, p {
+            text-shadow: 0px 3px 6px rgba(217, 29, 29, 0.2);
+        }
+
+        .cipher-description {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            background-color: white;
+            color: #212529;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cipher-description:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #4caf50;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-5">Welcome to the Cipher Playground</h1>
+        <p class="text-center mb-4">Learn how different ciphers work before exploring the tools!</p>
+        
+        <div class="row">
+            <!-- Caesar Cipher -->
+            <div class="col-md-6">
+                <div class="cipher-description">
+                    <h3>Caesar Cipher</h3>
+                    <p>
+                        The Caesar Cipher is a simple substitution cipher that shifts each letter of the plaintext 
+                        by a fixed number of positions down the alphabet. For example, a shift of 3 turns A into D, 
+                        B into E, and so on.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additive Cipher -->
+            <div class="col-md-6">
+                <div class="cipher-description">
+                    <h3>Additive Cipher</h3>
+                    <p>
+                        The Additive Cipher encrypts a message by adding a constant value (the key) to each letter’s 
+                        position in the alphabet. Decryption reverses this process by subtracting the key.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Multiplicative Cipher -->
+            <div class="col-md-6">
+                <div class="cipher-description">
+                    <h3>Multiplicative Cipher</h3>
+                    <p>
+                        The Multiplicative Cipher multiplies each letter’s position in the alphabet by a fixed key. 
+                        Decryption requires finding the modular multiplicative inverse of the key.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Affine Cipher -->
+            <div class="col-md-6">
+                <div class="cipher-description">
+                    <h3>Affine Cipher</h3>
+                    <p>
+                        The Affine Cipher combines two operations: multiplication and addition. A letter’s position 
+                        is first multiplied by a key, then a constant value is added. Decryption involves the inverse 
+                        of these operations.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="index.html" class="btn btn-primary btn-lg">Explore Ciphers</a>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">© 2024 Cyber Security Playground | All Rights Reserved</p>
+        <p class="mb-0">Created by Hridoy</p>
+</body>
+</html>
